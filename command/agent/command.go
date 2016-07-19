@@ -120,6 +120,8 @@ func (c *Command) readConfig() *Config {
 	cmdFlags.StringVar(&retryIntervalWan, "retry-interval-wan", "",
 		"interval between join -wan attempts")
 
+	cmdFlags.StringVar(&cmdConfig.MDNSDomain, "mdns-domain", "", "The .local subdomain under which Consul registers itself with mDMS.")
+
 	if err := cmdFlags.Parse(c.args); err != nil {
 		return nil
 	}
@@ -834,6 +836,7 @@ func (c *Command) Run(args []string) int {
 	c.Ui.Info(fmt.Sprintf("Gossip encrypt: %v, RPC-TLS: %v, TLS-Incoming: %v",
 		gossipEncrypted, config.VerifyOutgoing, config.VerifyIncoming))
 	c.Ui.Info(fmt.Sprintf("         Atlas: %s", atlas))
+	c.Ui.Info(fmt.Sprintf("         mDNS Domain: %s", config.MDNSDomain))
 
 	// Enable log streaming
 	c.Ui.Info("")

@@ -231,6 +231,8 @@ type Config struct {
 	// This period is meant to be long enough for a leader election to take
 	// place, and a small jitter is applied to avoid a thundering herd.
 	RPCHoldTimeout time.Duration
+
+	MdnsDomain string
 }
 
 // CheckVersion is used to check if the ProtocolVersion is valid

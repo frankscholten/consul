@@ -482,6 +482,8 @@ type Config struct {
 	// Consul reap only if it detects it's running as PID 1. If non-nil,
 	// then this will be used to decide if reaping is enabled.
 	Reap *bool `mapstructure:"reap"`
+
+	MDNSDomain string `mapstructure:"mdns-domain"`
 }
 
 // Bool is used to initialize bool pointers in struct literals.
@@ -1266,6 +1268,11 @@ func MergeConfig(a, b *Config) *Config {
 		result.SessionTTLMin = b.SessionTTLMin
 		result.SessionTTLMinRaw = b.SessionTTLMinRaw
 	}
+
+	if b.MDNSDomain != "" {
+		result.MDNSDomain = b.MDNSDomain
+	}
+
 	if len(b.HTTPAPIResponseHeaders) != 0 {
 		if result.HTTPAPIResponseHeaders == nil {
 			result.HTTPAPIResponseHeaders = make(map[string]string)
